@@ -79,29 +79,27 @@ function afficherCandidats() {
 }
 function trierParVotes() {
 
-    let liste = candidats.slice();
+    for (let i = 0; i < candidats.length - 1; i++) {
 
-    for (let i = 0; i < liste.length - 1; i++) {
+        for (let j = i + 1; j < candidats.length; j++) {
 
-        for (let j = i + 1; j < liste.length; j++) {
+            if (candidats[i].electeurs.length < candidats[j].electeurs.length) {
 
-            if (liste[i].electeurs.length < liste[j].electeurs.length) {
-
-                let temp = liste[i];
-                liste[i] = liste[j];
-                liste[j] = temp;
+                let temp = candidats[i];
+                candidats[i] = candidats[j];
+                candidats[j] = temp;
             }
         }
     }
 
-    for (let i = 0; i < liste.length; i++) {
+    for (let i = 0; i < candidats.length; i++) {
 
         console.log(
             (i + 1) + ". " +
-            liste[i].nom + " " +
-            liste[i].prenom +
+            candidats[i].nom + " " +
+            candidats[i].prenom +
             " : " +
-            liste[i].electeurs.length +
+            candidats[i].electeurs.length +
             " votes"
         );
     }
@@ -196,6 +194,22 @@ function modifierCandidat() {
 
 
 }
+function Supprimer_Candidat() {
+  let check = false;
+  let cin = prompt("enter le CIN :");
+  for (let i = 0; i < candidats.length; i++) {
+    if (cin === candidats[i].cin) {
+      candidats.splice(i, 1);
+      check = true;
+    }
+  }
+  if (check) {
+    console.log("supprime");
+  } else {
+    console.log("suprime ni pas seccus");
+  }
+}
+
 
     function lancerMenu() {
         do {
@@ -252,7 +266,7 @@ function modifierCandidat() {
                     break;
 
                 case "6":
-                    supprimer();
+                    Supprimer_Candidat()
                     break;
 
                 case "7":
