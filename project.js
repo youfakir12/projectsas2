@@ -1,13 +1,30 @@
 const prompt = require('prompt-sync')();
 let choix;
-const candidats = [{
-	cin : "AB123456",
-	nom : "Boushaba",
-	prenom : "Soufiane",
-	partiPolitique : "Indépendant",
-	age: 40,
-	electeurs: []
-}];
+const candidats = [
+    {
+    cin: "AB123",
+    nom: "Boushaba",
+    prenom: "Soufiane",
+    partiPolitique: "ultra",
+    age: 40,
+    electeurs: []
+    }, {
+    cin: "BC123",
+    nom: "Boushaba",
+    prenom: "Soufiane",
+    partiPolitique: "Indépendant",
+    age: 40,
+    electeurs: []
+    }, {
+    cin: "DD06",
+    nom: "Boushaba",
+    prenom: "Soufiane",
+    partiPolitique: "Indépendant",
+    age: 40,
+    electeurs: []
+    }
+
+];
 function ajouter() {
     let nouveau = {};
 
@@ -15,7 +32,7 @@ function ajouter() {
 
     for (let i = 0; i < candidats.length; i++) {
         if (candidats[i].cin === nouveau.cin) {
-            console.log("Ce CIN est déjà utilisé.");
+            console.log("Ce CIN est deja utilise.");
             return;
         }
     }
@@ -23,7 +40,7 @@ function ajouter() {
     nouveau.nom = prompt("Donner le nom : ");
     nouveau.prenom = prompt("Donner le prénom : ");
     nouveau.partiPolitique = prompt("Donner le parti politique : ");
-    nouveau.age = Number(prompt("Donner l'âge : "));
+    nouveau.age = Number(prompt("Donner l age : "));
     nouveau.electeurs = [];
 
     candidats.push(nouveau);
@@ -41,42 +58,7 @@ function ajouterEnGroupe() {
         i++;
     }
 }
-function ajouter() {
-    let nouveau = {};
 
-    nouveau.cin = prompt("Donner le CIN : ");
-
-    for (let i = 0; i < candidats.length; i++) {
-        if (candidats[i].cin === nouveau.cin) {
-            console.log("Ce CIN est déjà utilisé.");
-            return;
-        }
-    }
-
-    nouveau.nom = prompt("Donner le nom : ");
-    nouveau.prenom = prompt("Donner le prénom : ");
-    nouveau.partiPolitique = prompt("Donner le parti politique : ");
-    nouveau.age = Number(prompt("Donner l'âge : "));
-    nouveau.electeurs = [];
-
-    candidats.push(nouveau);
-
-    console.log("Ajout effectué.");
-}
-
-
-// Ajouter plusieurs candidats
-function ajouterEnGroupe() {
-    let n = Number(prompt("Nombre de candidats : "));
-
-    let i = 0;
-
-    while (i < n) {
-        console.log("\nCandidat numéro " + (i + 1));
-        ajouter();
-        i++;
-    }
-}
 function afficherCandidats() {
 
     if (candidats.length === 0) {
@@ -151,107 +133,145 @@ function filtrerParParti() {
 }
 function voter() {
 
-    let cinElecteur = prompt("CIN de l'électeur : ");
+    let cinElecteur = prompt("CIN de l electeur : ");
     let dejaVote = false;
 
-    for (let i = 0; i < candidats.length; i++) {
+    for (let candidat of candidats ) {
+        for(let electeur of candidat.electeurs ){
+            if(electeur == cinElecteur ){
+                dejaVote = true ;
+                break;
+            }
 
-        if (candidats[i].electeurs.indexOf(cinElecteur) !== -1) {
-            dejaVote = true;
-            break;
         }
+
     }
 
     if (dejaVote) {
-        console.log("Vous avez déjà voté et vous n’avez pas le droit de voter à nouveau.");
-        return;
+        console.log("Vous avez deja vote... ");
     }
 
-    let cinCandidat = prompt("CIN du candidat : ");
+    if(!dejaVote){
+         let cinCandidat = prompt("CIN du candidat : ");
+         let virfi = false;
+         for (let i = 0; i < candidats.length; i++) {
 
-    for (let i = 0; i < candidats.length; i++) {
-
-        if (candidats[i].cin === cinCandidat) {
+           if (candidats[i].cin === cinCandidat) {
             candidats[i].electeurs.push(cinElecteur);
-            console.log("Vote enregistré.");
-            return;
+            console.log("enregestre..");
+            virfi=true;
+            break;
+           }
         }
-    }
 
-    console.log("Candidat introuvable.");
+        if(!virfi){
+            console.log("No trovee c est cin .");
+
+        }
+
+    }
+ 
 }
 
-function lancerMenu() {
-    do {
-        console.log("\n========== MENU ==========");
-        console.log("1. Ajouter un candidat");
-        console.log("2. Ajouter plusieurs candidats");
-        console.log("3. Afficher les candidats");
-        console.log("4. Voter");
-        console.log("5. Modifier un candidat");
-        console.log("6. Supprimer un candidat");
-        console.log("7. Rechercher un candidat");
-        console.log("8. Statistiques");
-        console.log("0. Quitter");
-        console.log("==========================");
+function modifierCandidat() {
 
-        choix = prompt("Choisissez une option : ");
+        let cin = prompt("CIN du candidat : ");
+        let virfi = false ;
+    
 
-        switch (choix) {
+        for (let i = 0; i < candidats.length; i++) {
+            if (candidats[i].cin === cin) {
+                candidats[i].partiPolitique = prompt("Entre partiPolitique :");
+                candidats[i].age = Number(prompt("Entre age :"));
+                console.log("\n Enregistre...\n");
+                 virfi =true
+                 break;
+            }
+        }
 
-            case "1":
-                ajouter();
-                break;
 
-            case "2":
-                ajouterEnGroupe();
-                break;
+        if(!virfi){
+            console.log("not trouve...");
+        }
 
-            case "3":
+
+}
+
+    function lancerMenu() {
+        do {
+            console.log("\n========== MENU ==========");
+            console.log("1. Ajouter un candidat");
+            console.log("2. Ajouter plusieurs candidats");
+            console.log("3. Afficher les candidats");
+            console.log("4. Voter");
+            console.log("5. Modifier un candidat");
+            console.log("6. Supprimer un candidat");
+            console.log("7. Rechercher un candidat");
+            console.log("8. Statistiques");
+            console.log("0. Quitter");
+            console.log("==========================");
+
+            choix = prompt("Choisissez une option : ");
+
+            switch (choix) {
+
+                case "1":
+                    ajouter();
+                    break;
+
+                case "2":
+                    ajouterEnGroupe();
+                    break;
+
+                case "3":
                     console.log("1. Trier par nombre de votes");
                     console.log("2. Filtrer par parti politique");
+                    console.log("3. affichage toutes candidties");
 
-                     let choix = prompt("Votre choix : ");
+                    let choix = prompt("Votre choix : ");
 
-                     if (choix === "1") {
+                    if (choix === "1") {
                         trierParVotes();
-                     } else if (choix === "2") {
-                      filtrerParParti();
-                     } else {
-                     console.log("Choix invalide.");
-                     }
-                     break;
+                    } else if (choix === "2") {
+                        filtrerParParti();
+                    }
+                    else if(choix === "3"){
+                         afficherCandidats();
+                        
+                    } else {
+                        console.log("Choix invalide.");
+                    }
+                    break;
 
-            case "4":
-                voter();
-                break;
+                case "4":
+                    voter();
+                    break;
 
-            case "5":
-                modifierCandidat();
-                break;
+                case "5":
+                    modifierCandidat();
+                    break;
 
-            case "6":
-                supprimer();
-                break;
+                case "6":
+                    supprimer();
+                    break;
 
-            case "7":
-                rechercher();
-                break;
+                case "7":
+                    rechercher();
+                    break;
 
-            case "8":
-                statistiques();
-                break;
+                case "8":
+                    statistiques();
+                    break;
 
-            case "0":
-                console.log("Fin du programme.");
-                break;
+                case "0":
+                    console.log("Fin du programme.");
+                    break;
 
-            default:
-                console.log("Option incorrecte.");
-        }
+                default:
+                    console.log("Option incorrecte.");
+            }
 
-    } while (choix !== "0");
-}
+        } while (choix !== "0");
+    }
 
 lancerMenu();
-
