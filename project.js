@@ -178,7 +178,7 @@ function modifierCandidat() {
         let cin = prompt("CIN du candidat : ");
         let virfi = false ;
     
-
+// =================================================
         for (let i = 0; i < candidats.length; i++) {
             if (candidats[i].cin === cin) {
                 candidats[i].partiPolitique = prompt("Entre partiPolitique :");
