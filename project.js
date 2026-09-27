@@ -126,7 +126,7 @@ function filtrerParParti() {
     }
 
     if (!trouve) {
-        console.log("Aucun candidat trouvé pour ce parti.");
+        console.log("Aucun candidat trouve pour ce parti.");
     }
 }
 function voter() {
@@ -209,7 +209,28 @@ function Supprimer_Candidat() {
     console.log("suprime ni pas seccus");
   }
 }
-
+function RechercherCandidats() {
+  let nom = prompt("enter le nom ");
+  let check = false;
+  for (let i = 0; i < candidats.length; i++) {
+    if (candidats[i].nom === nom) {
+      console.log("\n# Candidat" + i + 1);
+      console.log("CIN:"+ candidats[i].cin );
+      console.log("Nom:"+ candidats[i].nom);
+      console.log("Prénom:"+ candidats[i].prenom);
+      console.log("Parti politique:" + candidats[i].partiPolitique);
+      console.log("Age:" + candidats[i].age);
+      console.log("Nombre de votes:"+ candidats[i].electeurs.length);
+      console.log("-----------------------------");
+      check = true;
+    }
+  }
+  if (check) {
+    console.log("Recherche réussie !");
+  } else {
+    console.log("condidat introuvable");
+  }
+}
 
     function lancerMenu() {
         do {
@@ -270,7 +291,7 @@ function Supprimer_Candidat() {
                     break;
 
                 case "7":
-                    rechercher();
+                    RechercherCandidats()
                     break;
 
                 case "8":
