@@ -10,16 +10,16 @@ const candidats = [
     electeurs: []
     }, {
     cin: "BC123",
-    nom: "Boushaba",
-    prenom: "Soufiane",
-    partiPolitique: "Indépendant",
+    nom: "mohmmed",
+    prenom: "Soufa",
+    partiPolitique: "VOVO",
     age: 40,
     electeurs: []
     }, {
     cin: "DD06",
-    nom: "Boushaba",
-    prenom: "Soufiane",
-    partiPolitique: "Indépendant",
+    nom: "yassine",
+    prenom: "oufa",
+    partiPolitique: "ultra",
     age: 40,
     electeurs: []
     }
@@ -45,12 +45,16 @@ function ajouter() {
 
     candidats.push(nouveau);
 
-    console.log("Ajout effectué.");
+    console.log("Ajout effectué");
 }
 function ajouterEnGroupe() {
     let n = Number(prompt("Nombre de candidats : "));
-
-    let i = 0;
+    
+         if( n <= 0 ){
+            console.log("invalide value");
+            return
+         }
+    let i = 0; 
 
     while (i < n) {
         console.log("\nCandidat numéro " + (i + 1));
@@ -73,21 +77,21 @@ function afficherCandidats() {
         console.log("Nom : " + candidats[i].nom);
         console.log("Prénom : " + candidats[i].prenom);
         console.log("Parti politique : " + candidats[i].partiPolitique);
-        console.log("Âge : " + candidats[i].age);
+        console.log("Age : " + candidats[i].age);
         console.log("Nombre de votes : " + candidats[i].electeurs.length);
     }
 }
 function trierParVotes() {
 
-    for (let i = 0; i < candidats.length - 1; i++) {
+    for (let i = 0; i < candidats.length ; i++) {
 
-        for (let j = i + 1; j < candidats.length; j++) {
+        for (let j = 0; j < candidats.length -1; j++) {
 
-            if (candidats[i].electeurs.length < candidats[j].electeurs.length) {
+            if (candidats[j].electeurs.length < candidats[j + 1].electeurs.length) {
 
-                let temp = candidats[i];
-                candidats[i] = candidats[j];
-                candidats[j] = temp;
+                let temp = candidats[j];
+                candidats[j] = candidats[j + 1];
+                candidats[j + 1] = temp;
             }
         }
     }
@@ -163,7 +167,7 @@ function voter() {
         }
 
         if(!virfi){
-            console.log("No trovee c est cin .");
+            console.log("No candida no trouve pas");
 
         }
 
@@ -175,8 +179,6 @@ function modifierCandidat() {
 
         let cin = prompt("CIN du candidat : ");
         let virfi = false ;
-    
-// =================================================
         for (let i = 0; i < candidats.length; i++) {
             if (candidats[i].cin === cin) {
                 candidats[i].partiPolitique = prompt("Entre partiPolitique :");
