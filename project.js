@@ -45,7 +45,7 @@ function ajouter() {
 
     candidats.push(nouveau);
 
-    console.log("Ajout effectué");
+    console.log("Ajout effectue");
 }
 function ajouterEnGroupe() {
     let n = Number(prompt("Nombre de candidats : "));
@@ -130,7 +130,7 @@ function filtrerParParti() {
     }
 
     if (!trouve) {
-        console.log("Aucun candidat trouve pour ce parti.");
+        console.log("Aucun candidat trouve pour ce parti");
     }
 }
 function voter() {
